@@ -19,26 +19,32 @@ namespace CTCI_2._2_Find_K
 
             int next = rnd.Next(1000);
             FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
+            FindKFromEnd_IterativeSpacing(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
             FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
+            FindKFromEnd_IterativeSpacing(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
             FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
+            FindKFromEnd_IterativeSpacing(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
             FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
+            FindKFromEnd_IterativeSpacing(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
             FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
+            FindKFromEnd_IterativeSpacing(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
             FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
+            FindKFromEnd_IterativeSpacing(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             Console.ReadLine();
@@ -81,7 +87,8 @@ namespace CTCI_2._2_Find_K
             {
                 sw.Stop();
 
-                Console.WriteLine("Recursive: The " + k_from_end + " node from the end has data: " + passed_node.Data + " (" + sw.ElapsedTicks + " ticks)");   
+                Console.WriteLine("Recursive:         The " + k_from_end + " node from the end has data: " + passed_node.Data + " (" + sw.ElapsedTicks + " ticks)");
+                Console.WriteLine();
             }
 
             return ++val;
@@ -125,9 +132,56 @@ namespace CTCI_2._2_Find_K
             }
 
             sw.Stop();
+                        
+            Console.WriteLine("Iterative 2-pass:  The " + k_from_end + " node from the end has data: " + runner.Data + " (" + sw.ElapsedTicks + " ticks)");
+        }
 
-            Console.WriteLine();
-            Console.WriteLine("Iterative: The " + k_from_end + " node from the end has data: " + runner.Data + " (" + sw.ElapsedTicks + " ticks)");
+        //////////////////////////////////////////////////////////////
+        //        
+        // 1. Run through the linked list using runner_fast, counting 
+        //    nodes up to k-from-end
+        // 2. Continue, incrementing both runner_fast and runner_slow
+        //    until runner_fast is at the last node in the list        
+        // 3. runner_slow is now k-from-end nodes from the end. 
+        //    Display result
+        //
+        // Note:       "1 from end" is 2nd to last.  "2 from end" is 
+        //             third.
+        // 
+        // Complexity: Algorithm runs in O(N) time
+        //             Every element is checked once
+        //
+        //             Algorithm requires O(1) space
+        //             Memory requirements are constant regardless
+        //             of input.
+        //
+        private static void FindKFromEnd_IterativeSpacing(int k_from_end, Node passed_head, Stopwatch sw)
+        {
+            Node runner_slow = passed_head;
+            Node runner_fast = passed_head;
+
+            for (int i = 0; i < k_from_end; ++i)
+            {
+                if (runner_fast.next == null)
+                    throw new Exception("K-from-end is greater than the number of nodes in list.");
+
+                runner_fast = runner_fast.next;
+            }
+            
+            // runner_slow is now k_from_end nodes behind runner_fast
+            // continue through list until end is found
+
+            while (runner_fast != null)
+            {            
+                runner_fast = runner_fast.next;
+                runner_slow = runner_slow.next;
+            }           
+
+            // runner_slow is now k_from_end nodes from the end of the list
+
+            sw.Stop();
+            
+            Console.WriteLine("Iterative Spacing: The " + k_from_end + " node from the end has data: " + runner_slow.Data + " (" + sw.ElapsedTicks + " ticks)");
         }
 
         private static Node CreateSinglyLinkedList(int count)
