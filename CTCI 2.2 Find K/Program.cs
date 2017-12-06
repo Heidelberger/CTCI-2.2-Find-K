@@ -11,25 +11,80 @@ namespace CTCI_2._2_Find_K
     {
         static void Main(string[] args)
         {
-            PrintHeaderMsg(2, 2, "Find Kth From Last");
+            PrintHeaderMsg(2, 2, "Find Kth From Last");           
 
             Random rnd = new Random();
 
-            Node head = CreateSinglyLinkedList(1000000);
-            
-            long ticks = FindKFromEnd(rnd.Next(1000000), head);
-            Console.WriteLine("ticks " + ticks);
-            Console.WriteLine();
+            Node head = CreateSinglyLinkedList(1000);
 
-            ticks = FindKFromEnd(rnd.Next(1000000), head);
-            Console.WriteLine("ticks " + ticks);
-            Console.WriteLine();
+            int next = rnd.Next(1000);
+            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
-            ticks = FindKFromEnd(rnd.Next(1000000), head);
-            Console.WriteLine("ticks " + ticks);
-            Console.WriteLine();
+            next = rnd.Next(1000);
+            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
+
+            next = rnd.Next(1000);
+            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
+
+            next = rnd.Next(1000);
+            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
+
+            next = rnd.Next(1000);
+            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
+
+            next = rnd.Next(1000);
+            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             Console.ReadLine();
+        }
+
+        //////////////////////////////////////////////////////////////
+        //        
+        // 1. If the current node isn't the last, recurse on next node
+        // 2. Once the last node is found, return an incremented value        
+        // 3. If the incremented value = k-from-end, print info
+        //
+        // Note:       "1 from end" is 2nd to last.  "2 from end" is
+        //             third.
+        //
+        // Note:       Recursive solution causes stack overflow for
+        //             lists over 1500ish items.  Larger lists should
+        //             use iterative solution.
+        // 
+        // Complexity: Algorithm runs in O(N) time
+        //             Every element is checked once to count, then 
+        //             again back to the K-element. Worst case O(2N) 
+        //             which is O(N) (drop the constant)
+        //
+        //             Algorithm requires O(N) space
+        //             Each node in the list requires a recursive call
+        //             which requires a frame on the stack.
+        //
+        private static int FindKFromEnd_Recursive(int k_from_end, Node passed_node, Stopwatch sw)
+        {
+            int val = 0;
+
+            // call recursively until end is found
+            if (passed_node.next != null)
+            {
+                val = FindKFromEnd_Recursive(k_from_end, passed_node.next, sw);
+            }
+
+            // return value unspools the stack of recursive calls until k_from_end is found
+            if (val == k_from_end)
+            {
+                sw.Stop();
+
+                Console.WriteLine("Recursive: The " + k_from_end + " node from the end has data: " + passed_node.Data + " ticks: " + sw.ElapsedTicks);   
+            }
+
+            return ++val;
         }
 
         //////////////////////////////////////////////////////////////
@@ -50,10 +105,8 @@ namespace CTCI_2._2_Find_K
         //             Memory requirements are constant regardless
         //             of input.
         //
-        private static long FindKFromEnd(int k_from_end, Node passed_head)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-                        
+        private static void FindKFromEnd(int k_from_end, Node passed_head, Stopwatch sw)
+        {               
             Node runner = passed_head;
 
             int count_of_nodes = 0;
@@ -70,11 +123,10 @@ namespace CTCI_2._2_Find_K
                 runner = runner.next;
             }
 
-            Console.WriteLine("Node Found!");
-            Console.WriteLine("The " + k_from_end + " node from the end has data: " + runner.Data);
-
             sw.Stop();
-            return sw.ElapsedTicks;
+
+            Console.WriteLine();
+            Console.WriteLine("Iterative: The " + k_from_end + " node from the end has data: " + runner.Data + " ticks: " + sw.ElapsedTicks);
         }
 
         private static Node CreateSinglyLinkedList(int count)
