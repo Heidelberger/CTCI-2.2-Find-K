@@ -81,7 +81,7 @@ namespace CTCI_2._2_Find_K
             {
                 sw.Stop();
 
-                Console.WriteLine("Recursive: The " + k_from_end + " node from the end has data: " + passed_node.Data + " ticks: " + sw.ElapsedTicks);   
+                Console.WriteLine("Recursive: The " + k_from_end + " node from the end has data: " + passed_node.Data + " (" + sw.ElapsedTicks + " ticks)");   
             }
 
             return ++val;
@@ -127,7 +127,7 @@ namespace CTCI_2._2_Find_K
             sw.Stop();
 
             Console.WriteLine();
-            Console.WriteLine("Iterative: The " + k_from_end + " node from the end has data: " + runner.Data + " ticks: " + sw.ElapsedTicks);
+            Console.WriteLine("Iterative: The " + k_from_end + " node from the end has data: " + runner.Data + " (" + sw.ElapsedTicks + " ticks)");
         }
 
         private static Node CreateSinglyLinkedList(int count)
