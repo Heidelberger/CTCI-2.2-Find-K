@@ -18,27 +18,27 @@ namespace CTCI_2._2_Find_K
             Node head = CreateSinglyLinkedList(1000);
 
             int next = rnd.Next(1000);
-            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
-            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
-            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
-            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
-            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             next = rnd.Next(1000);
-            FindKFromEnd(next, head, Stopwatch.StartNew());
+            FindKFromEnd_Iterative(next, head, Stopwatch.StartNew());
             FindKFromEnd_Recursive(next, head, Stopwatch.StartNew());
 
             Console.ReadLine();
@@ -94,7 +94,8 @@ namespace CTCI_2._2_Find_K
         //    (where x is K-From-End minus total nodes)
         // 3. Display result
         //
-        // Note: "1 from end" is 2nd to last.  "2 from end" is third.
+        // Note:       "1 from end" is 2nd to last.  "2 from end" is 
+        //             third.
         // 
         // Complexity: Algorithm runs in O(N) time
         //             Every element is checked once to count, then 
@@ -105,7 +106,7 @@ namespace CTCI_2._2_Find_K
         //             Memory requirements are constant regardless
         //             of input.
         //
-        private static void FindKFromEnd(int k_from_end, Node passed_head, Stopwatch sw)
+        private static void FindKFromEnd_Iterative(int k_from_end, Node passed_head, Stopwatch sw)
         {               
             Node runner = passed_head;
 
